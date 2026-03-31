@@ -25,18 +25,17 @@ def search_github_repos(keyword):
 def main():
     print(f"--- {datetime.now().strftime('%Y-%m-%d')} のリサーチ結果 ---")
     found_any = False
+    seen_repos = set()  # ← 追加
     
     for kw in SEARCH_KEYWORDS:
         repos = search_github_repos(kw)
         for repo in repos:
             if repo['stargazers_count'] >= MIN_STARS:
+                if repo['full_name'] in seen_repos:  # ← 追加
+                    continue                          # ← 追加
+                seen_repos.add(repo['full_name'])     # ← 追加
                 found_any = True
                 print(f"【名前】: {repo['full_name']}")
-                print(f"【URL】: {repo['html_url']}")
-                print(f"【説明】: {repo['description']}")
-                print(f"【Star】: {repo['stargazers_count']}")
-                print("-" * 30)
-                
     if not found_any:
         print("本日の新規アップデートはありませんでした。")
 
