@@ -1,8 +1,9 @@
+import os
 import requests
 from datetime import datetime, timedelta
 
 # --- 設定 ---
-GITHUB_TOKEN = "あなたのGitHubトークン"  # 未入力でも動作しますが制限があります
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 SEARCH_KEYWORDS = ["japanese speech-to-text", "whisper japanese", "日本語 音声認識"]
 MIN_STARS = 5  # フィルタリングする最小スター数
 
